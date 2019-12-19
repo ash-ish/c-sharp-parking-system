@@ -13,9 +13,7 @@ namespace CarParkingSystem
 
         public static void Main()
         {
-            Availability available = new Availability();
             Valet valet = new Valet();
-            Validation validate = new Validation();
             Input input = new Input();
 
             log.Info("------Parking Management System------");
@@ -27,8 +25,7 @@ namespace CarParkingSystem
                 log.Info("2. Park Car");
                 log.Info("3. Take Bike");
                 log.Info("4. Take Car");
-                log.Info("5. Main Menu");
-                log.Info("6. Exit");
+                log.Info("5. Exit");
 
                 choice = input.TakeChoice();
 
@@ -38,16 +35,17 @@ namespace CarParkingSystem
                         input.parkBikeInput();
                         break;
                     case 2:
-                        input.RemoveBikeInput();
                         break;
                     case 3:
+                        input.RemoveBikeInput();
                         break;
                     case 4:
                         break;
-                    case 5:
+                    default:
+                        log.Info("Please enter correct choice :");
                         break;
                 }
-            } while (choice != 6) ;
+            } while (choice != 5) ;
 
             valet.displayList();
             log.Info("Aane k Liye Dhanyawaad");

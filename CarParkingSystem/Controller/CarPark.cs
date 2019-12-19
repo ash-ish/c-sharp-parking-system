@@ -8,6 +8,9 @@ namespace CarParkingSystem
 {
     class CarPark
     {
-        
+        public static Dictionary<int, Car> fixedSlots = new Dictionary<int, Car>();
+        public static Dictionary<int, Car> BigfcfsSlots = new Dictionary<int, Car>();
+        public static Dictionary<int, Car> SmallfcfsSlots = new Dictionary<int, Car>();
+
     }
 }

@@ -20,10 +20,10 @@ namespace CarParkingSystem.Service
 
         public Boolean IsBikeSlotAvailable()
         {
-            bool availability = false;
-            if (BikePark.fcfsSlots.Count > 6)
+            bool availability = true;
+            if (BikePark.fcfsSlots.Count > 5)
             {
-                availability = true;
+                availability = false;
             }
             return availability;
         }
@@ -45,7 +45,7 @@ namespace CarParkingSystem.Service
             bool IsEligible = false;
             OneBikeAlreadyParked = IsBikealreadyParked(empID);
             SlotAvailable = IsBikeSlotAvailable();
-            if(OneBikeAlreadyParked && SlotAvailable)
+            if(OneBikeAlreadyParked == false && SlotAvailable == true)
             {
                 IsEligible = true;
             }
@@ -62,7 +62,7 @@ namespace CarParkingSystem.Service
             {
                 InconvinienceReason = "Your Maximum Parking limit is Reached ! empID has one bike already parked ";
             }
-            else if (SlotAvailable)
+            if(SlotAvailable == false)
             {
                 InconvinienceReason = "No slot available";
             }

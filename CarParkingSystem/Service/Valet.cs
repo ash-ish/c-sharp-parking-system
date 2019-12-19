@@ -36,7 +36,7 @@ namespace CarParkingSystem.Service
             foreach(KeyValuePair<int, Bike> kvp in BikePark.fcfsSlots)
             {
                 Bike bike = kvp.Value;
-                log.Info("key  " + kvp.Key.ToString() + "bikename  " + bike.name + "plate number " + bike.plateNumber);
+                log.Info("EmpID - " + kvp.Key + " bikename - " + bike.name + " plate number - " + bike.plateNumber);
             }
         }
 
@@ -48,7 +48,7 @@ namespace CarParkingSystem.Service
                 if(kvp.Key == empID)
                 {
                     Bike bike = kvp.Value;
-                    log.Info("bikename  " + bike.name + "plate number " + bike.plateNumber);
+                    log.Info("bikename  :" + bike.name + " plate-number  :" + bike.plateNumber);
                 }
             }
         }

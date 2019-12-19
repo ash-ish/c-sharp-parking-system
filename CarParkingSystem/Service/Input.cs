@@ -45,12 +45,12 @@ namespace CarParkingSystem.Service
         public void parkBikeInput()
         {
             int empID = TakeID();
-            if (available.IsEligibleForParking(empID))
+            if (available.IsEligibleForParking(empID) == true)
             {
                 valet.parkBike(empID);
             }else
             {
-                available.InconvinienceReason();
+                log.Info(available.InconvinienceReason());
             }
         }
 
@@ -58,12 +58,14 @@ namespace CarParkingSystem.Service
         {
             int empID = TakeID();
             bool OneBikeAlreadyParked = available.IsBikealreadyParked(empID);
-            if (OneBikeAlreadyParked)
-            {
-                log.Info("No Bike Present for ID - " + empID);
-            }else
+            if (OneBikeAlreadyParked == true)
             {
                 valet.removeBike(empID);
+            }
+            else
+            {
+                log.Info("No Bike Present for ID - " + empID);
+
             }
         }
 
