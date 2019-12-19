@@ -8,8 +8,8 @@ namespace CarParkingSystem
 {
     class Car
     {
-        string name { get; set; }
-        string type { get; set; }
-        string plateNumber { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public string plateNumber { get; set; }
     }
 }

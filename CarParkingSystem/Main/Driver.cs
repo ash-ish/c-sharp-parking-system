@@ -35,6 +35,7 @@ namespace CarParkingSystem
                         input.parkBikeInput();
                         break;
                     case 2:
+                        input.parkCarInput();
                         break;
                     case 3:
                         input.RemoveBikeInput();
@@ -47,7 +48,7 @@ namespace CarParkingSystem
                 }
             } while (choice != 5) ;
 
-            valet.displayList();
+            valet.displayBikeList();
             log.Info("Aane k Liye Dhanyawaad");
             Console.ReadKey();
 

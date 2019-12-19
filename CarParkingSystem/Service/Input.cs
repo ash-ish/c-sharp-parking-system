@@ -45,19 +45,33 @@ namespace CarParkingSystem.Service
         public void parkBikeInput()
         {
             int empID = TakeID();
-            if (available.IsEligibleForParking(empID) == true)
+            if (available.IsEligibleForBikeParking(empID) == true)
             {
                 valet.parkBike(empID);
             }else
             {
-                log.Info(available.InconvinienceReason());
+                log.Info(available.InconvinienceReasonForBike());
+            }
+        }
+
+
+        public void parkCarInput()
+        {
+            int empID = TakeID();
+            if (available.IsEligibleForCarParking(empID) == true)
+            {
+                valet.parkCar(empID);
+            }
+            else
+            {
+                log.Info(available.InconvinienceReasonForCar());
             }
         }
 
         public void RemoveBikeInput()
         {
             int empID = TakeID();
-            bool OneBikeAlreadyParked = available.IsBikealreadyParked(empID);
+            bool OneBikeAlreadyParked = available.IsBikeAlreadyParked(empID);
             if (OneBikeAlreadyParked == true)
             {
                 valet.removeBike(empID);
@@ -65,6 +79,22 @@ namespace CarParkingSystem.Service
             else
             {
                 log.Info("No Bike Present for ID - " + empID);
+
+            }
+        }
+
+
+        public void RemoveCarInput()
+        {
+            int empID = TakeID();
+            bool OneCarAlreadyParked = available.IsCarAlreadyParked(empID);
+            if (OneCarAlreadyParked == true)
+            {
+                valet.removeCar(empID);
+            }
+            else
+            {
+                log.Info("No Car Present for ID - " + empID);
 
             }
         }

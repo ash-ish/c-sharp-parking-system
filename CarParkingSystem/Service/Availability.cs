@@ -8,15 +8,12 @@ namespace CarParkingSystem.Service
 {
     class Availability
     {
-        BikePark bikePark = new BikePark();
 
         bool OneBikeAlreadyParked;
-        bool SlotAvailable;
+        bool BikeSlotAvailable;
+        bool OneCarAlreadyParked;
+        bool CarSlotAvailable;
 
-        public int CountBta()
-        {
-            return BikePark.fcfsSlots.Count();
-        }
 
         public Boolean IsBikeSlotAvailable()
         {
@@ -29,7 +26,18 @@ namespace CarParkingSystem.Service
         }
 
 
-        public Boolean IsBikealreadyParked(int empID)
+        private bool IsCarSlotAvailable()
+        {
+            bool availability = true;
+            if (CarPark.BigfcfsSlots.Count > 5)
+            {
+                availability = false;
+            }
+            return availability;
+        }
+
+
+        public Boolean IsBikeAlreadyParked(int empID)
         {
             bool present = false;
             if (BikePark.fcfsSlots.ContainsKey(empID))
@@ -40,12 +48,37 @@ namespace CarParkingSystem.Service
         }
 
 
-        public Boolean IsEligibleForParking(int empID)
+        public Boolean IsCarAlreadyParked(int empID)
+        {
+            bool present = false;
+            if (CarPark.BigfcfsSlots.ContainsKey(empID)  && CarPark.SmallfcfsSlots.ContainsKey(empID))
+            {
+                present = true;
+            }
+            return present;
+        }
+
+        //noww
+        public Boolean IsEligibleForCarParking(int empID)
         {
             bool IsEligible = false;
-            OneBikeAlreadyParked = IsBikealreadyParked(empID);
-            SlotAvailable = IsBikeSlotAvailable();
-            if(OneBikeAlreadyParked == false && SlotAvailable == true)
+            OneCarAlreadyParked = IsCarAlreadyParked(empID);
+            CarSlotAvailable = IsCarSlotAvailable();
+            if (OneBikeAlreadyParked == false && CarSlotAvailable == true)
+            {
+                IsEligible = true;
+            }
+            return IsEligible;
+        }
+
+       
+
+        public Boolean IsEligibleForBikeParking(int empID)
+        {
+            bool IsEligible = false;
+            OneBikeAlreadyParked = IsBikeAlreadyParked(empID);
+            BikeSlotAvailable = IsBikeSlotAvailable();
+            if(OneBikeAlreadyParked == false && BikeSlotAvailable == true)
             {
                 IsEligible = true;
             }
@@ -54,7 +87,7 @@ namespace CarParkingSystem.Service
         }
 
 
-        public string InconvinienceReason()
+        public string InconvinienceReasonForBike()
         {
             string InconvinienceReason = "";
 
@@ -62,12 +95,28 @@ namespace CarParkingSystem.Service
             {
                 InconvinienceReason = "Your Maximum Parking limit is Reached ! empID has one bike already parked ";
             }
-            if(SlotAvailable == false)
+            if(BikeSlotAvailable == false)
             {
                 InconvinienceReason = "No slot available";
             }
             return InconvinienceReason;
         }
+
+
+      /*  public string InconvinienceReasonForCar()
+        {
+            string InconvinienceReason = "";
+
+            if (OneCarAlreadyParked)
+            {
+                InconvinienceReason = "Your Maximum Parking limit of 1 has Reached !";
+            }
+            if (SlotAvailable == false)
+            {
+                InconvinienceReason = "No slot available";
+            }
+            return InconvinienceReason;
+        }*/
 
 
     }
