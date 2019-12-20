@@ -26,12 +26,22 @@ namespace CarParkingSystem.Service
         }
 
 
-        private bool IsCarSlotAvailable()
+        private bool IsCarSlotAvailable(string CarType)
         {
             bool availability = true;
-            if (CarPark.BigfcfsSlots.Count > 5)
+            if (string.Equals(CarType, "big", StringComparison.OrdinalIgnoreCase))
             {
-                availability = false;
+                if (CarPark.BigfcfsSlots.Count > 5)
+                {
+                    availability = false;
+                }
+            }
+            else
+            {
+                if (CarPark.SmallfcfsSlots.Count > 5)
+                {
+                    availability = false;
+                }
             }
             return availability;
         }
@@ -51,7 +61,7 @@ namespace CarParkingSystem.Service
         public Boolean IsCarAlreadyParked(int empID)
         {
             bool present = false;
-            if (CarPark.BigfcfsSlots.ContainsKey(empID)  && CarPark.SmallfcfsSlots.ContainsKey(empID))
+            if (CarPark.BigfcfsSlots.ContainsKey(empID)  || CarPark.SmallfcfsSlots.ContainsKey(empID))
             {
                 present = true;
             }
@@ -59,12 +69,12 @@ namespace CarParkingSystem.Service
         }
 
         //noww
-        public Boolean IsEligibleForCarParking(int empID)
+        public Boolean IsEligibleForCarParking(int empID, string CarType)
         {
             bool IsEligible = false;
             OneCarAlreadyParked = IsCarAlreadyParked(empID);
-            CarSlotAvailable = IsCarSlotAvailable();
-            if (OneBikeAlreadyParked == false && CarSlotAvailable == true)
+            CarSlotAvailable = IsCarSlotAvailable(CarType);
+            if (OneCarAlreadyParked == false && CarSlotAvailable == true)
             {
                 IsEligible = true;
             }
@@ -93,7 +103,7 @@ namespace CarParkingSystem.Service
 
             if (OneBikeAlreadyParked)
             {
-                InconvinienceReason = "Your Maximum Parking limit is Reached ! empID has one bike already parked ";
+                InconvinienceReason = "Your Maximum Parking limit of 1 has Reached ";
             }
             if(BikeSlotAvailable == false)
             {
@@ -103,7 +113,7 @@ namespace CarParkingSystem.Service
         }
 
 
-      /*  public string InconvinienceReasonForCar()
+        public string InconvinienceReasonForCar()
         {
             string InconvinienceReason = "";
 
@@ -111,12 +121,12 @@ namespace CarParkingSystem.Service
             {
                 InconvinienceReason = "Your Maximum Parking limit of 1 has Reached !";
             }
-            if (SlotAvailable == false)
+            if (CarSlotAvailable == false)
             {
                 InconvinienceReason = "No slot available";
             }
             return InconvinienceReason;
-        }*/
+        }
 
 
     }

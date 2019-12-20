@@ -18,6 +18,7 @@ namespace CarParkingSystem
 
             log.Info("------Parking Management System------");
             int choice;
+            bool exit = false;
             do
             {
                 log.Info("Enter your choice");
@@ -41,12 +42,17 @@ namespace CarParkingSystem
                         input.RemoveBikeInput();
                         break;
                     case 4:
+                        input.RemoveCarInput();
+                        break;
+                    case 5:
+                        exit = true;
                         break;
                     default:
-                        log.Info("Please enter correct choice :");
+                        log.Info("Please Enter a valid choice");
                         break;
                 }
-            } while (choice != 5) ;
+
+            } while (exit == false);
 
             valet.displayBikeList();
             log.Info("Aane k Liye Dhanyawaad");

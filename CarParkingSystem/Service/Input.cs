@@ -31,12 +31,37 @@ namespace CarParkingSystem.Service
 
         public int TakeChoice()
         {
-            int choice;
-            string input = Console.ReadLine();
-            while(int.TryParse(input, out choice) == false)
+            int choice = 0;
+            bool CorrectChoice = false;
+           // string input = Console.ReadLine();
+            while(CorrectChoice == false)
             {
-                log.Info("Please enter a valid ID");
-                input = Console.ReadLine();
+                string input = Console.ReadLine();
+                // bool CheckChoice = true;
+                if (int.TryParse(input, out choice) == false)
+                {
+                    log.Info("Please enter a valid Choice");
+
+                    //input = Console.ReadLine();
+                    // CheckChoice = false;
+                }
+                else
+                {
+                    CorrectChoice = true;
+                }
+                /*
+                if (CheckChoice)
+                {
+                    if (choice >= 1 && choice <= 5)
+                    {
+                        CorrectChoice = true;
+                        //input = Console.ReadLine();
+                    }
+                    else
+                    {
+                        log.Info("Please enter a valid Choice");
+                    }
+                }*/
             }
             return choice;
         }
@@ -54,19 +79,53 @@ namespace CarParkingSystem.Service
             }
         }
 
-
         public void parkCarInput()
         {
             int empID = TakeID();
-            if (available.IsEligibleForCarParking(empID) == true)
+            string type = TakeCarType();
+            if (available.IsEligibleForCarParking(empID, type) == true)
             {
-                valet.parkCar(empID);
+                valet.parkCar(empID, type);
             }
             else
             {
                 log.Info(available.InconvinienceReasonForCar());
             }
         }
+
+
+        public bool ValidateCarType(string CarType)
+        {
+            bool ValidType = false;
+            if (string.Equals(CarType, "big", StringComparison.OrdinalIgnoreCase))
+            {
+                ValidType = true;
+            }
+            else if (string.Equals(CarType, "small", StringComparison.OrdinalIgnoreCase))
+            {
+                ValidType = true;
+            }
+
+            return ValidType;
+        }
+
+
+        public string TakeCarType()
+        {
+            log.Info("Enter Car Type  Big(SUV/Sedan) or Small(others)");
+            string type = Console.ReadLine();
+            bool ValidType = ValidateCarType(type);
+            while (ValidType == false)
+            {
+                log.Info("Please enter valid Car Type");
+                type = Console.ReadLine();
+                ValidType = ValidateCarType(type);
+            }
+            return type;
+        }
+
+
+        
 
         public void RemoveBikeInput()
         {

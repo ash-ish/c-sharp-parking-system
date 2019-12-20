@@ -22,14 +22,11 @@ namespace CarParkingSystem.Service
         }
 
 
-        public void parkCar(int empID)
+        public void parkCar(int empID, string TypeOfCar)
         {
             log.Info("Enter Car details -: ");
             log.Info("Enter Car name");
-            //exception handling for wrong inputsssss
             string CarName = Console.ReadLine();
-            log.Info("Enter Car Type  Big(SUV/Sedan)  Small(others)");
-            string TypeOfCar = Console.ReadLine();
             log.Info("Enter Car plate number");
             string CarPlateNumber = Console.ReadLine();
             if(string.Equals(TypeOfCar, "big", StringComparison.OrdinalIgnoreCase))
@@ -40,8 +37,9 @@ namespace CarParkingSystem.Service
             {
                 CarPark.SmallfcfsSlots.Add(empID, new Car() { name = CarName, type = TypeOfCar, plateNumber = CarPlateNumber });
             }
-            log.Info("Your Bike is parked! :)");
+            log.Info("Your Car is parked! :)");
         }
+
 
         public void removeBike(int empID)
         {
@@ -105,7 +103,7 @@ namespace CarParkingSystem.Service
                 if (kvp.Key == empID)
                 {
                     Car car = kvp.Value;
-                    log.Info("bikename  :" + car.name + " Type : " + car.type + " plate-number  :" + car.plateNumber);
+                    log.Info("bikename  : " + car.name + "    Type : " + car.type + "    plate-number  :" + car.plateNumber);
                 }
             }
         }
