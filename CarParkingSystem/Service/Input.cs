@@ -33,35 +33,17 @@ namespace CarParkingSystem.Service
         {
             int choice = 0;
             bool CorrectChoice = false;
-           // string input = Console.ReadLine();
             while(CorrectChoice == false)
             {
                 string input = Console.ReadLine();
-                // bool CheckChoice = true;
                 if (int.TryParse(input, out choice) == false)
                 {
                     log.Info("Please enter a valid Choice");
-
-                    //input = Console.ReadLine();
-                    // CheckChoice = false;
                 }
                 else
                 {
                     CorrectChoice = true;
                 }
-                /*
-                if (CheckChoice)
-                {
-                    if (choice >= 1 && choice <= 5)
-                    {
-                        CorrectChoice = true;
-                        //input = Console.ReadLine();
-                    }
-                    else
-                    {
-                        log.Info("Please enter a valid Choice");
-                    }
-                }*/
             }
             return choice;
         }

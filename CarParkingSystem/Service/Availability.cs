@@ -14,6 +14,7 @@ namespace CarParkingSystem.Service
         bool OneCarAlreadyParked;
         bool CarSlotAvailable;
 
+        Valet valet = new Valet();
 
         public Boolean IsBikeSlotAvailable()
         {
@@ -68,7 +69,7 @@ namespace CarParkingSystem.Service
             return present;
         }
 
-        //noww
+
         public Boolean IsEligibleForCarParking(int empID, string CarType)
         {
             bool IsEligible = false;
@@ -81,7 +82,6 @@ namespace CarParkingSystem.Service
             return IsEligible;
         }
 
-       
 
         public Boolean IsEligibleForBikeParking(int empID)
         {
@@ -92,6 +92,11 @@ namespace CarParkingSystem.Service
             {
                 IsEligible = true;
             }
+            if(BikeSlotAvailable == false)
+            {
+                valet.AddToWaitList(empID);
+            }
+
             return IsEligible;
            
         }

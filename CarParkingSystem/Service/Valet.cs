@@ -87,6 +87,40 @@ namespace CarParkingSystem.Service
         }
 
 
+        public void AddToWaitList(int empID)
+        {
+            if (BikePark.RejectionCount.ContainsKey(empID))
+            {
+                if(BikePark.RejectionCount[empID] == 2)
+                {
+                    if(BikePark.fixedSlots.Count > 3)
+                    {
+                        BikePark.RejectionCount.Remove(empID);
+                        BikePark.WaitList.Add(empID);
+                        log.Info("It has been 3 times there is No parking slot available for you");
+                        log.Info("So we are moving you in the waitlist of Fixed Parking Slot. :) (increasing population ;) )");
+                    }else
+                    {
+                       // BikePark.fixedSlots.Add(empID, )
+                        log.Info("It has been 3 times there is No parking slot available for you");
+                        log.Info("So we are providing you a fixed slot :)  (increasing population ;) )");
+
+
+                    }
+
+                }
+                else
+                {
+                    BikePark.RejectionCount[empID] += 1;
+                }
+            }
+            else
+            {
+                BikePark.RejectionCount.Add(empID, 1);
+            }
+        }
+
+
         public void DisplayCarOfEmpID(int empID)
         {
             Dictionary<int, Car> TemporaryDictionary;

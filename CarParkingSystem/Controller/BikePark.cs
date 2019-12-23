@@ -10,5 +10,8 @@ namespace CarParkingSystem
     {
         public static Dictionary<int, Bike> fixedSlots = new Dictionary<int, Bike>();
         public static Dictionary<int, Bike> fcfsSlots = new Dictionary<int, Bike>();
+        public static List<int> WaitList = new List<int>();
+        public static Dictionary<int, int> RejectionCount = new Dictionary<int, int>();
+
     }
 }
